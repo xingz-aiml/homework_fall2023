@@ -1,3 +1,4 @@
+# Core ML packages - using compatible versions for macOS ARM64
 mujoco==2.2.0
 gym==0.25.2
 tensorboard==2.10.0
@@ -11,3 +12,4 @@ opencv-python==4.6.0.66
 ipdb==0.13.9
 swig==4.0.2
 box2d-py==2.3.8
+numpy<2  # Fix for OpenCV compatibility
