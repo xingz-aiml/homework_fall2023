@@ -36,15 +36,15 @@ def sample_trajectory(env, policy, max_path_length, render=False):
         # TODO use the most recent ob to decide what to do
         ob = torch.FloatTensor(ob, device = ptu.device)
 
-        ac = policy.forward(ob).detach().numpy() # HINT: this is a numpy array
-        ac = ac[0]
+        ac = policy(ob).detach().numpy() # HINT: this is a numpy array
+        ac = ac[0] # changes dim from [1, size_action_space] to [size_action_space]
 
         # TODO: take that action and get reward and next ob
         next_ob, rew, done, _ = env.step(ac)
         
         # TODO rollout can end due to done, or due to max_path_length
         steps += 1
-        rollout_done = done # HINT: this is either 0 or 1
+        rollout_done = done or steps == max_path_length # HINT: this is either 0 or 1
         
         # record result of taking that action
         obs.append(ob)
@@ -92,6 +92,7 @@ def sample_n_trajectories(env, policy, ntraj, max_path_length, render=False):
         # collect rollout
         path = sample_trajectory(env, policy, max_path_length, render)
         paths.append(path)
+
     return paths
 
 

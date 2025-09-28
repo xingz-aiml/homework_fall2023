@@ -158,7 +158,7 @@ class MLPPolicySL(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
         # TODO: update the policy and return the loss
 
         # compute loss defined as how different the predicted action is different from experts 
-        predicted_actions = self.forward(observations)
+        predicted_actions = self(observations)
         loss = F.mse_loss(predicted_actions, actions)
 
         # backward propogation
